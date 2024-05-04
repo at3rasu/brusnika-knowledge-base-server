@@ -18,6 +18,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrusnikaKnowledgeBaseServer.Application", "BrusnikaKnowledgeBaseServer.Application\BrusnikaKnowledgeBaseServer.Application.csproj", "{60D69E27-5243-47E7-A2DA-07F1050F41CE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{162B8F04-DC8E-4091-B9F6-609EEC092026} = {162B8F04-DC8E-4091-B9F6-609EEC092026}
+		{C96E52F2-D2C1-4A12-B6F7-3592D542F142} = {C96E52F2-D2C1-4A12-B6F7-3592D542F142}
 	EndProjectSection
 EndProject
 Global

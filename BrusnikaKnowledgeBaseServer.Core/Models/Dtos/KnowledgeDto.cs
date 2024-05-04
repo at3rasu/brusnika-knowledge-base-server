@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BrusnikaKnowledgeBaseServer.Core.Models.Dtos
 {
-    internal class KnowledgeDto
+    public record KnowledgeDto
     {
+        public int? Id { get; set; }
+        public string? Title { get; set; }
+        public string? Content { get; set; }
     }
 }

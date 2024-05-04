@@ -1,12 +1,23 @@
+using BrusnikaKnowledgeBaseServer.Application;
+using BrusnikaKnowledgeBaseServer.Application.ExtensionMethods;
+using BrusnikaKnowledgeBaseServer.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts;
+using BrusnikaKnowledgeBaseServer.Core.Models.MappingProfiles;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AbstractHandler>());
+builder.Services.AddAutoMapper(typeof(AutomapperPing));
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-/*builder.Services.AddSwaggerGen();*/
+builder.Services.AddSwaggerGen();
+builder.Services.AddMvc();
+builder.Services.AddMvcCore();
 
-
-
-/*builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+builder.Services.AddDbContext<IUploadFileDbContext, UploadFileContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("KnowledgeBase"));
+});
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
                     builder
@@ -15,19 +26,45 @@ var builder = WebApplication.CreateBuilder(args);
                     .AllowAnyHeader()
                     .AllowCredentials();
                 }));
-builder.Services.AddCors();*/
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddControllers().AddNewtonsoftJson();
+
+/*builder.Services.AddSpaStaticFiles(config =>
+{
+    config.RootPath = "dist";
+});*/
+
+builder.Services.AddCors();
+builder.Services.AddControllers();
+builder.Services.AddUseCases();
+builder.Services.AddTransient<UploadFileContext>();
+
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-/*app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Example v1"));
-
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Example v1"));
+}
 app.UseRouting();
 
-app.UseCors("CorsPolicy");*/
+app.UseCors("CorsPolicy");
 
-/*app.UseAuthorization();*/
+app.UseAuthorization();
+app.MapControllers();
+
+//app.UseHttpsRedirection();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
 
 app.Run();
