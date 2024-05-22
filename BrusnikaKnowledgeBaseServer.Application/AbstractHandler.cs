@@ -5,10 +5,10 @@ namespace BrusnikaKnowledgeBaseServer.Application
 {
     public abstract class AbstractHandler
     {
-        protected readonly IUploadFileDbContext db;
+        protected readonly IKnowledgeDbContext db;
 
 
-        public AbstractHandler(IUploadFileDbContext context)
+        public AbstractHandler(IKnowledgeDbContext context)
         {
             db = context;
         }

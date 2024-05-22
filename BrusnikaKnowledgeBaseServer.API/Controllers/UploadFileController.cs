@@ -1,4 +1,4 @@
-﻿using BrusnikaKnowledgeBaseServer.Application.Actions.UploadFileActions;
+﻿/*using BrusnikaKnowledgeBaseServer.Application.Actions.UploadFileActions;
 using BrusnikaKnowledgeBaseServer.Core.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,3 +28,4 @@ namespace BrusnikaKnowledgeBaseServer.API.Controllers
         }
     }
 }
+*/

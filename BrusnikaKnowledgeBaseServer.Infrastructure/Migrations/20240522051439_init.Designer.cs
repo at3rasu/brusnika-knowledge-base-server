@@ -2,6 +2,7 @@
 using BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -9,10 +10,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations
 {
-    [DbContext(typeof(UploadFileContext))]
-    partial class UploadFileContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(KnowledgeContext))]
+    [Migration("20240522051439_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,7 @@ namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BrusnikaKnowledgeBaseServer.Core.Models.DbModels.UploadFile", b =>
+            modelBuilder.Entity("BrusnikaKnowledgeBaseServer.Core.Models.DbModels.Knowledge", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,18 +35,12 @@ namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("FileContent")
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Path")
+                    b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UploadFiles");
+                    b.ToTable("Knowledges");
                 });
 #pragma warning restore 612, 618
         }

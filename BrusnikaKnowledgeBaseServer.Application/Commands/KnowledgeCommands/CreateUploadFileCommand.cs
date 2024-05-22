@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BrusnikaKnowledgeBaseServer.Application.Commands.UploadFileCommands
 {
-    internal class CreateUploadFileCommand : IRequest<int>
+   /* internal class CreateUploadFileCommand : IRequest<int>
     {
         public UploadFileDto UploadFile { get; set; }
     }
@@ -55,5 +55,5 @@ namespace BrusnikaKnowledgeBaseServer.Application.Commands.UploadFileCommands
 
             return uploadFile;
         }
-    }
+    }*/
 }

@@ -1,17 +1,20 @@
 ﻿
+using BrusnikaKnowledgeBaseServer.Application.Actions.KnowledgeActions;
+using BrusnikaKnowledgeBaseServer.Core.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BrusnikaKnowledgeBaseServer.API.Controllers
 {
-    [Route("/api/v1/[controller]")]
+    [Route("/api/[controller]")]
+    [ApiController]
     public class KnowledgeController : ControllerBase
     {
-        /*public KnowledgeController() { }
+        public KnowledgeController() { }
 
         [HttpPost("")]
         public async Task<IActionResult> AddNewPlayer
             ([FromServices] CreateKnowledgeAction createNewKnowledge,
-            [FromBody] KnowledgeDto knowledgDto)
+            [FromForm] KnowledgeDto knowledgDto)
         {
             if (!ModelState.IsValid)
             {
@@ -22,6 +25,6 @@ namespace BrusnikaKnowledgeBaseServer.API.Controllers
 
             Response.StatusCode = result.ResultStatus;
             return new JsonResult(result.ResultContent);
-        }*/
+        }
     }
 }

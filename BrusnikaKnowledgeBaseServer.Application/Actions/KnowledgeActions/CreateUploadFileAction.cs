@@ -7,7 +7,7 @@ using System.IO;
 
 namespace BrusnikaKnowledgeBaseServer.Application.Actions.UploadFileActions
 {
-    public class CreateUploadFileAction : AbstractAction
+   /* public class CreateUploadFileAction : AbstractAction
     {
         public CreateUploadFileAction(IMediator mediator) : base(mediator) { }
 
@@ -32,5 +32,5 @@ namespace BrusnikaKnowledgeBaseServer.Application.Actions.UploadFileActions
                 ResultContent = await mediator.Send(new CreateUploadFileCommand { UploadFile = file })
             };
         }
-    }
+    }*/
 }

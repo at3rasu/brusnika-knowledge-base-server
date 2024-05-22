@@ -1,4 +1,5 @@
-﻿using BrusnikaKnowledgeBaseServer.Application.Actions.UploadFileActions;
+﻿using BrusnikaKnowledgeBaseServer.Application.Actions.KnowledgeActions;
+using BrusnikaKnowledgeBaseServer.Application.Actions.UploadFileActions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BrusnikaKnowledgeBaseServer.Application.ExtensionMethods
@@ -8,7 +9,7 @@ namespace BrusnikaKnowledgeBaseServer.Application.ExtensionMethods
         public static IServiceCollection AddUseCases
             (this IServiceCollection services)
         {
-            services.AddScoped<CreateUploadFileAction>();
+            services.AddScoped<CreateKnowledgeAction>();
 
             return services;
         }

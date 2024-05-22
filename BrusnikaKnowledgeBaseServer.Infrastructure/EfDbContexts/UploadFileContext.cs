@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts
 {
-    public partial class UploadFileContext : DbContext, IUploadFileDbContext
+    public partial class UploadFileContext : DbContext/*, IUploadFileDbContext*/
     {
-        public UploadFileContext()
+        /*public UploadFileContext()
         {
         }
 
@@ -29,6 +29,6 @@ namespace BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts
         {
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);*/
     }
 }

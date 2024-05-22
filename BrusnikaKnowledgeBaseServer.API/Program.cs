@@ -4,16 +4,22 @@ using BrusnikaKnowledgeBaseServer.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts;
 using BrusnikaKnowledgeBaseServer.Core.Models.MappingProfiles;
+using Microsoft.Extensions.FileProviders;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AbstractHandler>());
 builder.Services.AddAutoMapper(typeof(AutomapperPing));
+builder.Services.AddSingleton(provider => new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new KnowledgeMappingProfile());
+}).CreateMapper());
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
 builder.Services.AddMvcCore();
 
-builder.Services.AddDbContext<IUploadFileDbContext, UploadFileContext>(options =>
+builder.Services.AddDbContext<IKnowledgeDbContext, KnowledgeContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("KnowledgeBase"));
 });
@@ -43,6 +49,13 @@ builder.Services.AddTransient<UploadFileContext>();
 
 
 var app = builder.Build();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "MyStaticFiles")),
+    RequestPath = "/api/StaticFiles"
+});
 
 if (app.Environment.IsDevelopment())
 {
