@@ -4,29 +4,19 @@ using MediatR;
 using BrusnikaKnowledgeBaseServer.Core.Models.Dtos;
 using Microsoft.AspNetCore.Http;
 using BrusnikaKnowledgeBaseServer.Application.Commands.KnowledgeCommands;
-using BrusnikaKnowledgeBaseServer.Application.Services.Actions;
-using Microsoft.AspNetCore.Mvc;
+using BrusnikaKnowledgeBaseServer.Application.Actions.AbstactActions;
+using BrusnikaKnowledgeBaseServer.Core.Models.DbModels;
 
 namespace BrusnikaKnowledgeBaseServer.Application.Actions.KnowledgeActions
 {
-    public class CreateKnowledgeAction : AbstractAction
+    public class CreateKnowledgeAction : AbstractKnowledgeAction
     {
         public CreateKnowledgeAction(IMediator mediator) : base(mediator) { }
 
 
-        public async Task<ResultWrapperDto> CreateNewKnowledge(KnowledgeDto knowledge)
+        public async Task<ResultWrapperDto> CreateNewKnowledge(KnowledgeCreateDto knowledge)
         {
-            if (knowledge.Id != null || knowledge.Id.HasValue)
-            {
-                return new ResultWrapperDto
-                {
-                    ResultStatus = StatusCodes.Status400BadRequest,
-                    ResultContent = new ErrorResponseDto
-                    {
-                        ErrorTextForUser = "Validation error"
-                    }
-                };
-            }
+            
 
             return new ResultWrapperDto
             {

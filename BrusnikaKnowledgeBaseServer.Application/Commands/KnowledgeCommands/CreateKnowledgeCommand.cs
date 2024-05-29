@@ -5,15 +5,17 @@ using BrusnikaKnowledgeBaseServer.Core.Models.DbModels;
 using BrusnikaKnowledgeBaseServer.Core.Models.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.JsonPatch;
+using BrusnikaKnowledgeBaseServer.Application.Commands.AbstractHandlers;
+using Microsoft.AspNetCore.Http;
 
 namespace BrusnikaKnowledgeBaseServer.Application.Commands.KnowledgeCommands
 {
-    internal class CreateKnowledgeCommand : IRequest<int>
+    internal class CreateKnowledgeCommand : IRequest<Knowledge>
     {
-        public KnowledgeDto Knowledge { get; set; }
+        public KnowledgeCreateDto Knowledge { get; set; }
         public JsonPatchDocument<Knowledge> PatchModel { get; set; }
     }
-    internal class CreateKnowledgeCommandHandler : AbstractHandler, IRequestHandler<CreateKnowledgeCommand, int>
+    internal class CreateKnowledgeCommandHandler : AbstractKnowledgeHandler, IRequestHandler<CreateKnowledgeCommand, Knowledge>
     {
         private readonly IMapper mapper;
 
@@ -22,7 +24,7 @@ namespace BrusnikaKnowledgeBaseServer.Application.Commands.KnowledgeCommands
             this.mapper = mapper;
         }
 
-        public async Task<int> Handle(CreateKnowledgeCommand request, CancellationToken cancellationToken)
+        public async Task<Knowledge> Handle(CreateKnowledgeCommand request, CancellationToken cancellationToken)
         {
             var toAdd = mapper.Map<Knowledge>(request.Knowledge);
             await db.AddAsync(toAdd);
@@ -49,11 +51,12 @@ namespace BrusnikaKnowledgeBaseServer.Application.Commands.KnowledgeCommands
                 {
                     await request.Knowledge.Content.CopyToAsync(FileStream);
                 }
-
+                toAdd.Src = $"api/StaticFiles/Knowledges/{title}";
+                toAdd.FileName = request.Knowledge.Content.FileName;
                 db.Update(toAdd);
                 await db.SaveChangesAsync();
             }
-            return toAdd.Id;
+            return toAdd;
         }
     }
 }
