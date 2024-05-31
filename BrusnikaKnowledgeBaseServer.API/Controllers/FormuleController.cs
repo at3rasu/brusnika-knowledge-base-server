@@ -3,12 +3,14 @@ using BrusnikaKnowledgeBaseServer.Application.Actions.FormuleActions;
 using BrusnikaKnowledgeBaseServer.Core.Models.DbModels;
 using BrusnikaKnowledgeBaseServer.Core.Models.Dtos;
 using BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BrusnikaKnowledgeBaseServer.API.Controllers
 {
-    [Route("/api/[controller]")]
+    [EnableCors("CorsPolicy")]
+    [Route("/api/[controller]/")]
     [ApiController]
     public class FormuleController : ControllerBase
     {
@@ -38,7 +40,7 @@ namespace BrusnikaKnowledgeBaseServer.API.Controllers
             return new JsonResult(result.ResultContent);
         }
 
-        [HttpPost("/result")]
+        [HttpPost("result")]
         public async Task<IActionResult> GetResult
             ([FromServices] GetFormuleResultAction createNewFormule,
             [FromForm] FormuleResultDto formuleDto)

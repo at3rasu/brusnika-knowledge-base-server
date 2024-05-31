@@ -19,6 +19,6 @@ namespace BrusnikaKnowledgeBaseServer.Core.Models.DbModels
         public IFormFile Content { get; set; }
         public string FileName { get; set; }
         public string Src { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime DateUpdate { get; set; } = DateTime.UtcNow;
     }
 }

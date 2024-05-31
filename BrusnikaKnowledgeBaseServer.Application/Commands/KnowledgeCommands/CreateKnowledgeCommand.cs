@@ -53,6 +53,7 @@ namespace BrusnikaKnowledgeBaseServer.Application.Commands.KnowledgeCommands
                 }
                 toAdd.Src = $"api/StaticFiles/Knowledges/{title}";
                 toAdd.FileName = request.Knowledge.Content.FileName;
+                toAdd.DateUpdate = DateTime.Now;
                 db.Update(toAdd);
                 await db.SaveChangesAsync();
             }

@@ -8,9 +8,12 @@ using BrusnikaKnowledgeBaseServer.Core.Models.RequestModels;
 using BrusnikaKnowledgeBaseServer.Infrastructure.EfDbContexts;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 
 namespace BrusnikaKnowledgeBaseServer.API.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("/api/[controller]")]
     [ApiController]
     public class KnowledgeController : ControllerBase
@@ -40,28 +43,36 @@ namespace BrusnikaKnowledgeBaseServer.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAllKnowledges
-            ([FromServices] GetAllKnowledgesAction getAllKnowlledgesAction)
+        public async Task<IEnumerable<Knowledge>> GetAllKnowledges()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(await getAllKnowlledgesAction.GetAllKnowledges());
+            return await knowledgeContext.Knowledges.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<KnowledgeDto>> GetKnowledge
-            (int id)
+        public async Task<ActionResult<Knowledge>> GetKnowledge(int id)
         {
-            var existingEntity = await knowledgeContext.Knowledges.FindAsync(id);
-            if (existingEntity == null)
+            var knowledge = await knowledgeContext.Knowledges.FindAsync(id);
+            if (knowledge == null)
             {
                 return NotFound();
             }
 
-            return mapper.Map<KnowledgeDto>(existingEntity);
+            return knowledge;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Knowledge>> DeleteKnowledge(int id)
+        {
+            var knowledge = await knowledgeContext.Knowledges.FindAsync(id);
+            if (knowledge == null)
+            {
+                return NotFound();
+            }
+
+            knowledgeContext.Knowledges.Remove(knowledge);
+            await knowledgeContext.SaveChangesAsync();
+
+            return knowledge;
         }
     }
 }

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations.Knowledge
 {
     [DbContext(typeof(KnowledgeContext))]
-    [Migration("20240529171300_ed")]
+    [Migration("20240529213807_ed")]
     partial class ed
     {
         /// <inheritdoc />
@@ -33,7 +33,7 @@ namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations.Knowledge
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("DateUpdate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")

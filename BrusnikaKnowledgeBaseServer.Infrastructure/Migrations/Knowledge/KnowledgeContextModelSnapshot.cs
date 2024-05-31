@@ -30,7 +30,7 @@ namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations.Knowledge
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("DateUpdate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")

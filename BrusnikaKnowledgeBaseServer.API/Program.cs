@@ -50,10 +50,9 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
                     builder
-                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
+                    .AllowAnyHeader();
                 }));
 
 builder.Services.AddControllersWithViews();
@@ -78,17 +77,17 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/api/StaticFiles"
 });
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Example v1"));
-    app.UseDeveloperExceptionPage();
-}
-else
+/*if (app.Environment.IsDevelopment())
+{*/
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Example v1"));
+app.UseDeveloperExceptionPage();
+/*}*/
+/*else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts(); // Включение HSTS
-}
+}*/
 
 app.UseHttpsRedirection(); // Перенаправление HTTP-запросов на HTTPS
 

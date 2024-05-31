@@ -16,5 +16,6 @@ namespace BrusnikaKnowledgeBaseServer.Core.Models.Dtos
         public string? Description { get; set; }
         public string? FileName { get; set; }
         public string? Src { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }

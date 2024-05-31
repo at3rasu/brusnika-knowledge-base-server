@@ -22,7 +22,7 @@ namespace BrusnikaKnowledgeBaseServer.Infrastructure.Migrations.Knowledge
                     Description = table.Column<string>(type: "text", nullable: true),
                     FileName = table.Column<string>(type: "text", nullable: true),
                     Src = table.Column<string>(type: "text", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    DateUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
